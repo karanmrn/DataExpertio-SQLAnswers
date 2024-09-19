@@ -18,3 +18,10 @@ product_id integer
 customer_id integer
 review_score double
 helpful_votes integer
+
+with cte as (select product_id, customer_id, review_score, helpful_votes,
+rank() over (partition by customer_id order by review_score desc, helpful_votes desc) as ranked 
+from playground.product_reviews)
+select product_id, customer_id, review_score, helpful_votes from cte
+where ranked=1
+order by 1 asc
