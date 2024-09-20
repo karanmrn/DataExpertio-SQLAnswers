@@ -1,0 +1,27 @@
+Identifying Empty Departments
+ 
+Given two tables, playground.employees and playground.departments, with employees containing id, full_name, and department, and departments containing id (unique department ID) and dep_name (department name), write a SQL query to build a table with one column, dep_name. This table should list all the departments that currently have no employees, sorted by the department id.
+
+These are the tables to query for this question:
+playground.employees
+id int
+full_name string
+department int
+playground.departments
+id int
+dep_name string
+Your answer should include these columns:
+dep_name varchar
+
+
+Write Your Query Here (you can run selections by highlighting!)
+
+select pd.dep_name fom playground.departments pd left join playground.employees pe on pd.id=pe.department
+where pe.id is null
+order by pd.id
+
+select departments.dep_name
+from playground.departments
+left join playground.employees on departments.id = employees.department
+where employees.id is null
+order by departments.id
