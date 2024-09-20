@@ -1,0 +1,29 @@
+Select Rows With Maximum Revenue
+ 
+Using the table playground.revenue, write a SQL query to select rows from a given table that have the maximum revenue value for each id. The resultant table should have three columns - "id", "rev", "content". Additionally, the results should be ordered in descending order by revenue.
+
+These are the tables to query for this question:
+
+playground.revenue
+id int
+rev int
+content string
+Your answer should include these columns:
+
+id integer
+rev integer
+content varchar
+Write Your Query Here (you can run selections by highlighting!)
+
+
+with maxrevenue as (
+  select 
+    id,
+    max(rev) as max_rev
+  from playground.revenue
+  group by id
+)
+
+select p.id,p.rev,p.content from playground.revenue p join maxrevenue m on p.id=m.id and p.rev=m.max_rev
+group by 1,2,3
+order by 2 desc
