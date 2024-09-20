@@ -1,0 +1,22 @@
+Write a SQL query to analyze the profit performance of the company throughout the years using the playground.superstore table. Ensure to convert profit from varchar to a suitable numeric type for aggregation. The output should include the year extracted from the order_date (order_year), the total annual profit (total_profit) rounded to two decimal places, and should be ordered by year in descending order.
+
+<<BOTH ANSWERS ARE CORRECT>>
+
+These are the tables to query for this question:
+playground.superstore
+
+Write Your Query Here (you can run selections by highlighting!)
+SELECT year(order_date) as order_year,(sum(cast(profit as decimal(10,2))))  as total_profit FROM playground.superstore 
+group by year(order_date)
+order by 1 desc
+
+select 
+    extract(year from order_date) as order_year,
+    sum(
+        cast(profit as decimal(10,2))
+    ) as total_profit
+from playground.superstore
+group by 
+  extract(year from order_date)
+  order by 1 desc
+
