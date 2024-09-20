@@ -1,0 +1,37 @@
+Find US Customers Who Rented and Streamed Videos in Early February
+This question was hard (Reread)
+ 
+Write a SQL query to return the US customers who rented a video on February 1st, 2023, and then streamed the same video between February 2nd and February 8th, 2023. Use the tables playground.rental for rental data and playground.streams for streaming data. The output should include unique user IDs of these customers ordered in ascending order.
+
+These are the tables to query for this question:
+playground.rental
+country string
+rental_date date
+rental_id int
+user_id int
+playground.streams
+country string
+stream_date date
+rental_id int
+user_id int
+device_type string
+minutes_streamed int
+Your answer should include these columns:
+user_id integer
+Write Your Query Here (you can run selections by highlighting!)
+select
+  r.user_id,
+  r.rental_date,
+  s.stream_date,
+  r.country
+from
+  playground.rental r
+inner join playground.streams s on
+  r.rental_id = s.rental_id
+  and r.user_id = s.user_id
+where
+  r.country = 'US'
+ and date(r.rental_date) = date '2023-02-01'
+ and date(s.stream_date) between date '2023-02-02' and date '2023-02-08'
+ order by r.user_id asc
+
